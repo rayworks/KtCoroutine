@@ -1,5 +1,5 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
     id 'application'
 }
 
@@ -10,11 +10,15 @@ repositories {
     mavenCentral()
 }
 
-def kt_coroutines = '1.4.2'
+def kt_coroutines = '1.5.2'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
     implementation "com.squareup.okhttp3:okhttp:4.9.1"
 
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kt_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kt_coroutines"
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
