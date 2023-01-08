@@ -1,6 +1,7 @@
 package org.kt.coroutine.concepts
 
 import kotlinx.coroutines.*
+import org.kt.coroutine.utils.log
 
 class Profile(val id: String)
 
@@ -12,15 +13,19 @@ fun fetchAndLoadProfile(id: String) = scope.launch {
 }
 
 fun loadProfile(profile: Profile) {
-    println(">>> load profile : ${profile.id}")
+    log(">>> load profile : ${profile.id}")
 }
 
 suspend fun fetchProfile(id: String): Profile = withContext(Dispatchers.IO) {
+    log(">>> Before delay")
     delay(1500)
+    log(">>> End delay")
     Profile(id)
 }
 
 fun main() = runBlocking {
     val job = fetchAndLoadProfile("bond")
+    log(">>> Before join")
     job.join()
+    log(">>> End of main")
 }
