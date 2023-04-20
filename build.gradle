@@ -8,6 +8,7 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven { url 'https://repository.apache.org/snapshots' }
 }
 
 def kt_coroutines = '1.6.0'
@@ -21,6 +22,10 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kt_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kt_coroutines"
+
+    implementation 'io.github.microutils:kotlin-logging:1.8.3'
+    implementation 'org.slf4j:slf4j-simple:1.7.29'
+
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }
 
