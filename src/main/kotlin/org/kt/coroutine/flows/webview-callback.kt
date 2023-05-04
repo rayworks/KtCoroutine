@@ -56,13 +56,7 @@ fun getMsgFlow(webView: MockWebView) = callbackFlow {
 fun main() = runBlocking {
     val webView = MockWebView()
 
-    val asyncObv = launch {
-        getMsgFlow(webView).collect {
-            logger.info("Collected : $it")
-        }
-    }
-
-    val deferred = async(Dispatchers.IO) {
+    val deferred = async {
         // simulate async calls
         delay(3000)
 
@@ -75,8 +69,10 @@ fun main() = runBlocking {
         webView.destroy()
     }
 
-    asyncObv.join()
-    deferred.await()
+    getMsgFlow(webView).collect {
+        logger.info("Collected : $it")
+    }
 
+    deferred.await()
     logger.info("End of Main()")
 }
