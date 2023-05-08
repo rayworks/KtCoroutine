@@ -1,5 +1,5 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.6.0'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.20'
     id 'application'
 }
 
@@ -11,7 +11,7 @@ repositories {
     maven { url 'https://repository.apache.org/snapshots' }
 }
 
-def kt_coroutines = '1.6.0'
+def kt_coroutines = '1.6.4'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -19,7 +19,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 dependencies {
     implementation "com.squareup.okhttp3:okhttp:4.9.1"
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kt_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kt_coroutines"
 
