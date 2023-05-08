@@ -1,9 +1,8 @@
 package org.kt.coroutine.flows
 
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
 import kotlinx.coroutines.channels.ticker
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.selects.whileSelect
 
@@ -14,6 +13,7 @@ import kotlinx.coroutines.selects.whileSelect
  *
  * Consequently, the produced list of elements have a maximum size of [maxSize].
  */
+@OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class, ObsoleteCoroutinesApi::class)
 fun <T> Flow<T>.bufferTimeout(
     maxSize: Int,
     maxDelayMillis: Long
