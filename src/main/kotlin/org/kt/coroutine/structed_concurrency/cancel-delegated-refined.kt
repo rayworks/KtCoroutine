@@ -7,8 +7,10 @@ import kotlin.coroutines.resumeWithException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 suspend fun Call.await() =
-    suspendCancellableCoroutine<ResponseBody?> { continuation ->
+    suspendCancellableCoroutine { continuation ->
+        // make sure that the code is cooperative with cancellation
         continuation.invokeOnCancellation {
+            println("About to cancel the HTTP call")
             cancel()
         }
 

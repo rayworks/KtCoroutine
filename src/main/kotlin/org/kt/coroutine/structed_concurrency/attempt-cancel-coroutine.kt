@@ -13,6 +13,9 @@ fun main() = runBlocking {
                 if (System.currentTimeMillis() >= nextPrintTime) {
                     println("job : I'm working...")
                     nextPrintTime += 500
+
+                    // however, functions from the standard library already support cancellation.
+//                    delay(10)
                 }
             }
         }

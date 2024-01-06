@@ -6,7 +6,12 @@ fun main() = runBlocking {
     withContext(Dispatchers.Unconfined) {
         val job = launch(Dispatchers.Default) {
             var nextPrintTime = startTime
-            while (isActive) { // returns true when the current job is still active (not complete, not cancelled yet)
+
+            // Be cooperative with cancellation
+            while (isActive) {
+                // CoroutineScope.isActive : returns true when the current job is still active
+                // (not complete, not cancelled yet)
+
                 if (System.currentTimeMillis() >= nextPrintTime) {
                     println("job : I'm working...")
                     nextPrintTime += 500
