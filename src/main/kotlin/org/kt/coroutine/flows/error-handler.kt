@@ -14,19 +14,19 @@ val encapsulateError = upstream
         if (it < 0) throw NumberFormatException("Value  should be greater than 0")
     }
     .catch { e ->
-        println("Caught $e")
+        println("Caught encapsulated $e")
     }
 
 fun main() = runBlocking {
-/*    try {
+    try {
         upstream.collect { value ->
-//            if (value > 2)
-//                throw RuntimeException()
+            if (value > 2)
+                throw RuntimeException()
             println("Received $value")
         }
     } catch (e: Throwable) {
-        println("Caught $e")
-    }*/
+        println("Caught in upstream : $e")
+    }
 
     try {
         encapsulateError.collect {

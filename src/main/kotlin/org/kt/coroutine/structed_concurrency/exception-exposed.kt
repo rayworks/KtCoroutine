@@ -16,6 +16,8 @@ fun main() = runBlocking {
             }
 
             val task2 = async {
+                delay(500)
+
                 throw Exception()
             }
 
@@ -23,12 +25,19 @@ fun main() = runBlocking {
             try {
                 task2.await()
             } catch (e: Exception) {
+                coroutineContext.ensureActive()
+                // process the error
                 println("Caught exception $e")
             }
             task1.join()
+
+            delay(100)
+            task2.cancel()
         }
     }
 
-    job.join()
+    delay(300)
+    job.cancelAndJoin()
+//    job.join()
     println("Program ends")
 }

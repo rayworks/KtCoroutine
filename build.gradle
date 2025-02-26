@@ -11,15 +11,15 @@ repositories {
     maven { url 'https://repository.apache.org/snapshots' }
 }
 
-def kt_coroutines = '1.6.4'
+def kt_coroutines = '1.9.0'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
-    implementation "com.squareup.okhttp3:okhttp:4.9.1"
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kt_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kt_coroutines"
 
@@ -27,6 +27,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-simple:1.7.29'
 
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-debug:1.4.0'
 }
 
 test {

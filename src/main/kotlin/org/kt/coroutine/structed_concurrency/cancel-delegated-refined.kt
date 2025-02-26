@@ -2,10 +2,9 @@ package org.kt.coroutine.structed_concurrency
 
 import kotlinx.coroutines.*
 import okhttp3.*
-import java.io.IOException
+import okio.IOException
 import kotlin.coroutines.resumeWithException
 
-@OptIn(ExperimentalCoroutinesApi::class)
 suspend fun Call.await() =
     suspendCancellableCoroutine { continuation ->
         // make sure that the code is cooperative with cancellation
@@ -13,9 +12,21 @@ suspend fun Call.await() =
             println("About to cancel the HTTP call")
             cancel()
         }
+        try {
+            val response = this@await.execute()
+            continuation.resume(response.body, onCancellation = { e ->
+                e.printStackTrace()
+            })
+        } catch (exp : IOException) {
+            continuation.resumeWithException(exp)
+        }
 
-        enqueue(object : Callback {
+        /*enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+                println(">>> internal exception")
+                e.printStackTrace()
+                println("\n")
+
                 continuation.resumeWithException(e)
             }
 
@@ -25,7 +36,7 @@ suspend fun Call.await() =
                 })
             }
 
-        })
+        })*/
     }
 
 
@@ -34,8 +45,13 @@ val request = Request.Builder().url("https://publicobject.com/helloworld.txt")
     .build()
 
 suspend fun performHttpRequest(): ResponseBody? = withContext(Dispatchers.IO) {
-    val call = okHttpClient.newCall(request)
-    call.await()
+    try {
+        val call = okHttpClient.newCall(request)
+        return@withContext call.await()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return@withContext null
 }
 
 fun main() = runBlocking {
